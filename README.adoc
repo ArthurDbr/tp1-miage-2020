@@ -5,7 +5,7 @@ NOTE: TP de deux slots de 1h20
 ## Nom des étudiants de ce binôme 
 WARNING: NE PAS OUBLIER DE MENTIONNER LES DEUX NOMS !
 
-#XXX# et #YYY#
+#Arthur Debar# et #Mamadou Yero Boiro#
 
 Commentaires éventuels des étudiants : #XXXXXX#
 
@@ -49,9 +49,16 @@ _Temps estimé : 1 h_
 
 IMPORTANT: [Question]  Le code est-il structuré en couches ? Imaginez un projet d'entreprise constitué de centaines de classes ainsi structuré : que risque-t-il d'arriver ?
 
+Ici on peut remarquer que le code n'est pas structurer en coucher. Si on imagine un projet avec plus d'envergure et donc beaucoup plus de classes 
+cela va vite devenir impossible pour les developpeur de s'y retrouver et ne pas être maintenable.
+
 IMPORTANT: [Question]  Que se passe-t-il si l'on renomme une colonne de la base de donnée ?
 
+Si l'on renomme une colonne de la base de donnée on devra modifier le fichier ToDoItem.java.
+
 IMPORTANT: [Question]  Où se trouve le code métier (voir la règle de gestion RG1) ? cette règle est-elle facilement testable par un test unitaire ? 
+
+Le code métier se trouve dans le classe distante CrudRepository, ce qui la rend difficilement testable.
 
 * Lancer une base PostgreSQL en Docker :
 ```bash
@@ -59,13 +66,33 @@ docker run --rm -it -e POSTGRES_PASSWORD=password -p 5432:5432 postgres
 ```
 IMPORTANT: [Question]  Expliquer cette ligne de commande (y compris les options utilisées)
 
+* _Docker run_ permet de démarrer un conteneur
+* _--rm_ supprime le conteneur à la fin de l'execution
+* _-it_ affiche les logs du conteneur et lance un pseudo terminal 
+* _-e POSTGRES_PASSWORD_ initialise une variable d'environnement password dans le conteneur
+* _-p_ redirige le port d'entré du conteneur vers le port de la machine host
+* _postgres_  nomme le conteneur   
+
 IMPORTANT: [Question]  Lancer les commandes `docker ps` et `ps -eaf | grep postgres`, à quoi correspondent les lignes affichées ? Que remarquez vous ?
+
+* _docker ps_ liste les conteneurs actif
+* _ps -eaf | grep postgres_ cette commande affiche les différents processus sur la machine. On peut donc retrouver les processus lancé par docker directement sur la machine. Ils sont donc considérés comme des processus normaux
 
 * Compléter le code manquant dans la méthode `TodoListController.createTodoItem()`
 
 * IMPORTANT: [Question] Pourquoi `todoItemRepository` est-il `null` ? Quelle est la meilleure façon de l'injecter ? 
 
+Car celui-ci n'est pas injecter. Ici le mieux est de l'injecter par le constructeur avec l'annotation @Inject.
+
 * Modifier le code en conséquence.
+
+```	
+  @Inject
+	public TodoListController(TodoItemRepository todoItemRepository) {
+		super();
+		this.todoItemRepository = todoItemRepository;
+	}
+```
 
 * Tester vos endpoints avec un client REST.
 
@@ -83,6 +110,28 @@ IMPORTANT: [Question]  Lancer les commandes `docker ps` et `ps -eaf | grep postg
   }
 ```
 ====
+
+Test en faisant la requete : localhost:8080/todos  
+
+* 1) avec le verb GET : ```[]```
+* 2) avec le verb POST : body : 
+```json 
+{
+    "id": "2",
+    "content": "banane",
+    "time": 1547111260
+}
+```
+* 3) avec le verb GET :
+```json 
+{
+  "id": "1",
+  "time": "2019-01-10T09:07:30Z",
+  "content": "[LATE!]banane"
+}
+```
+
+
 
 * Quand les deux endpoints fonctionnent, faire un push vers Github et fermer le projet Eclipse (ne pas le supprimer).
 
@@ -102,6 +151,11 @@ Source : http://leanpub.com/get-your-hands-dirty-on-clean-architecture[Tom Hombe
   - la couche entités qui contient les entités (au sens DDD, pas au sens JPA). En général, classes complexes (méthodes riches, relations entre les entités,  pas de simples POJO anémiques)
 
 IMPORTANT: [Question] Rappeler en quelques lignes les grands principes de cette architecture.
+
+Il existe 3 grands principes l'architecture hexagonale :
+* Séparer l'Application, le Domaine et l'Infrastructure
+* Séparer les entrés des sorties (In/Out)
+* Le Domaine ne dépend de rien mais tous le reste dépend du Domaine
 
 Complétez ce code avec une fonctionnalité de création de `TodoItem`  persisté en base et appelé depuis un endpoint REST `POST /todos` qui renvoi un code `201` en cas de succès. La fonctionnalité à implémenter est contractualisée par le port d'entrée `AddTodoItem`.
 
