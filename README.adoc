@@ -152,12 +152,34 @@ Source : http://leanpub.com/get-your-hands-dirty-on-clean-architecture[Tom Hombe
 
 IMPORTANT: [Question] Rappeler en quelques lignes les grands principes de cette architecture.
 
-Il existe 3 grands principes l'architecture hexagonale :
-* Séparer l'Application, le Domaine et l'Infrastructure
-* Séparer les entrés des sorties (In/Out)
-* Le Domaine ne dépend de rien mais tous le reste dépend du Domaine
+Il existe 3 grands principes l'architecture hexagonal qui définissent la logique métier sont les Entities, les Interactors et les Repositories :
+
+* Les entités sont les objets de domaine et ils ne savent pas où ils sont stockés 
+* Les Repositories sont les interfaces permettant d'obtenir des entités ainsi que de les créer et de les modifier. Ils conservent une liste des méthodes utilisées pour communiquer avec les sources de données et renvoient une seule entité ou une liste d'entités. 
+* Les Interactors sont des classes qui orchestrent et effectuent des actions de domaine. Ils mettent en œuvre des règles métier complexes et une logique de validation spécifique à une action de domaine.
+
+Avec ces trois principaux types d'objets, nous sommes en mesure de définir la logique métier sans aucune connaissance de où les données sont conservées et comment la logique métier est déclenchée. En dehors de la logique métier se trouvent les Data Source et la Transport Layer :
+
+* Les Data Source sont des adaptateurs pour différentes implémentations de stockage. Les Data Source implémente des méthodes définies sur le référentiel et stocke l'implémentation de la récupération et de la transmission des données.
+
+* La Transport Layer peut déclencher un Interactors pour exécuter la logique métier. La Transport Layer la plus courante pour les microservices est la couche API HTTP et un ensemble de contrôleurs qui gèrent les demandes.
+
 
 Complétez ce code avec une fonctionnalité de création de `TodoItem`  persisté en base et appelé depuis un endpoint REST `POST /todos` qui renvoi un code `201` en cas de succès. La fonctionnalité à implémenter est contractualisée par le port d'entrée `AddTodoItem`.
+
+Après avoir complété le code nous obtenons donc :
+
+Avec le Verb Post et le body : 
+```
+{
+    "id": "1",
+    "content": "chocolat",
+    "time": 1547111260
+}
+```
+
+Nous obtenons bien un code `201`.
+
 
 # Exercice 3 - Ecriture de tests
 _Temps estimé : 20 mins_

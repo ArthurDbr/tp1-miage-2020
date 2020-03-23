@@ -30,9 +30,15 @@ public class TodoListController {
 	private AddTodoItems addTodoItemsQuery;
 	
 	@Inject
-	public TodoListController(GetTodoItems getTodoItemsQuery ) {
+	public TodoListController(GetTodoItems getTodoItemsQuery, AddTodoItems addTodoItemsQuery ) {
 		this.getTodoItemsQuery = getTodoItemsQuery;
+		this.addTodoItemsQuery = addTodoItemsQuery;
 	}
+	
+//	@Inject
+//	public TodoListController(AddTodoItems addTodoItemsQuery) {
+//		this.addTodoItemsQuery = addTodoItemsQuery;
+//	}
 	
 	@GetMapping("/todos")
 	public List<TodoItem> getAllTodoItems() {
@@ -42,7 +48,7 @@ public class TodoListController {
 	@PostMapping("/todos")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void createTodoItem(@RequestBody TodoItem todoItem) {
-		addTodoItemsQuery.createTodoItem(todoItem);
+		this.addTodoItemsQuery.createTodoItem(todoItem);
 	}
 	
 	

@@ -2,10 +2,15 @@ package com.acme.todolist.application.service;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Component;
+
+import com.acme.todolist.application.port.in.AddTodoItems;
 import com.acme.todolist.application.port.out.UpdateTodoItem;
 import com.acme.todolist.domain.TodoItem;
 
-public class AddTodoItemsService {
+@Component
+public class AddTodoItemsService implements AddTodoItems {
+	
 	private UpdateTodoItem updateTodoItem;
 	
 	@Inject
