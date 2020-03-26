@@ -173,12 +173,22 @@ Avec le Verb Post et le body :
 ```
 {
     "id": "1",
-    "content": "chocolat",
-    "time": 1547111260
+    "time": "2020-02-27T10:31:43Z",
+    "content": "chocolat"
 }
 ```
 
 Nous obtenons bien un code `201`.
+
+Puis avec le Verb Get nous obtenons : 
+
+```
+{
+    "id": "1",
+    "time": "2020-02-27T10:31:43Z",
+    "content": "[LATE!] chocolat"
+}
+```
 
 
 # Exercice 3 - Ecriture de tests
@@ -193,5 +203,7 @@ IMPORTANT: [Question] Quels types de tests devra-t-on écrire pour les adapteurs
 Il faudrait écrire des tests d'intégrations.
 
 IMPORTANT: [Question] Que teste-on dans ce cas ? 
+
+Il faut tester l'adapteur REST.
 
 * S'il vous reste du temps, écrivez quelques uns de ces types de test.
