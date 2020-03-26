@@ -200,7 +200,7 @@ _Temps estimé : 20 mins_
 
 IMPORTANT: [Question] Quels types de tests devra-t-on écrire pour les adapteurs ? 
 
-Il faudrait écrire des tests d'intégrations.
+Il faudrait écrire des tests d'intégrations. Les tests d'intégration sont effectués pour évaluer la conformité d'un système ou d'un composant avec des exigences fonctionnelles spécifiées. Ils ont lieu après les tests unitaires et avant les tests de validation. C'est eux qui déterminent si les fonctionnalités développées fonctionnent correctement lorsqu'elles sont connectées les unes aux autres.
 
 IMPORTANT: [Question] Que teste-on dans ce cas ? 
 
