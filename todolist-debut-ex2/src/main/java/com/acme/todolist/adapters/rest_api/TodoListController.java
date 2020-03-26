@@ -35,11 +35,6 @@ public class TodoListController {
 		this.addTodoItemsQuery = addTodoItemsQuery;
 	}
 	
-//	@Inject
-//	public TodoListController(AddTodoItems addTodoItemsQuery) {
-//		this.addTodoItemsQuery = addTodoItemsQuery;
-//	}
-	
 	@GetMapping("/todos")
 	public List<TodoItem> getAllTodoItems() {
 		return this.getTodoItemsQuery.getAllTodoItems();

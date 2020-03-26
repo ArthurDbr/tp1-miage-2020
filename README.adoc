@@ -190,6 +190,8 @@ _Temps estimé : 20 mins_
 
 IMPORTANT: [Question] Quels types de tests devra-t-on écrire pour les adapteurs ? 
 
+Il faudrait écrire des tests d'intégrations.
+
 IMPORTANT: [Question] Que teste-on dans ce cas ? 
 
 * S'il vous reste du temps, écrivez quelques uns de ces types de test.
